@@ -4,6 +4,7 @@
 using namespace std;
 #include "config.h"
 
+
 static bool comments( ifstream &in, string &name ) {
     for ( ;; ) {
 	in >> name;

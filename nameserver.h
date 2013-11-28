@@ -1,7 +1,15 @@
 #ifndef __NAME_SERVER_H
 #define __NAME_SERVER_H
 
+#include "printer.h"
+
+_Task NameServer;
+
+#include "vendingmachine.h"
+
 _Task NameServer {
+    Printer &printer;
+    
     void main();
   public:
     NameServer( Printer &prt, unsigned int numVendingMachines, unsigned int numStudents );
