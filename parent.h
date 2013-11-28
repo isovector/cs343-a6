@@ -1,6 +1,9 @@
 #ifndef __PARENT_H
 #define __PARENT_H
 
+#include "printer.h"
+#include "bank.h"
+
 _Task Parent {
     void main();
   public:
