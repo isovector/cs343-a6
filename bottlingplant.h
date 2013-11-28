@@ -5,6 +5,9 @@
 #include "nameserver.h"
 
 _Task BottlingPlant {
+    Printer &printer;
+    NameServer &server;
+    
     void main();
   public:
     BottlingPlant( Printer &prt, NameServer &nameServer, unsigned int numVendingMachines,

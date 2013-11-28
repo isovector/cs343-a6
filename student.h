@@ -6,6 +6,10 @@
 #include "watcard.office.h"
 
 _Task Student {
+    Printer &printer;
+    NameServer &server;
+    WATCardOffice &office;
+    
     void main();
   public:
     Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id,

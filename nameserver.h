@@ -8,6 +8,8 @@ _Task NameServer;
 #include "vendingmachine.h"
 
 _Task NameServer {
+    Printer &printer;
+    
     void main();
   public:
     NameServer( Printer &prt, unsigned int numVendingMachines, unsigned int numStudents );

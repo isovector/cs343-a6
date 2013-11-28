@@ -9,6 +9,9 @@
 #define Args int
 
 _Task WATCardOffice {
+    Printer &printer;
+    Bank &bank;
+    
     struct Job {                           // marshalled arguments and return future
         Args args;                         // call arguments (YOU DEFINE "Args")
         FWATCard result;                   // return future
