@@ -13,6 +13,9 @@ struct ConfigParms {
     unsigned int numCouriers;              // number of couriers in the pool
 };
 
+// that is not how you spell params
+typedef ConfigParms ConfigParams;
+
 void processConfigFile( const char *configFile, ConfigParms &cparms );
 
 #endif
