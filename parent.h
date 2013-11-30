@@ -3,10 +3,12 @@
 
 #include "printer.h"
 #include "bank.h"
+#include "MPRNG.h"
 
 _Task Parent {
     Printer &printer;
     Bank &bank;
+    unsigned int parentalDelay, numStudents;
     
     void main();
     

@@ -96,7 +96,7 @@ void WATCardOffice::Courier::main()
 /*
 * Test Program
 #include "MPRNG.h"
-MPRNG mprand;
+//MPRNG mprand;
 
 void uMain::main()
 {
