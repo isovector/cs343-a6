@@ -3,6 +3,7 @@
 
 //_Monitor WATCard;
 #include "watcard.h"
+#include "MPRNG.h"
 #include <list>
 _Monitor Printer;
 _Monitor Bank;
@@ -24,17 +25,19 @@ _Task WATCardOffice
     };
 
     _Task Courier {
+            Printer &printer;
             Bank &bank;
             WATCardOffice &office;
             void main();
           public:
-            Courier( Bank &bank, WATCardOffice &office ) : bank(bank), office(office) {};
+            Courier( Printer &printer, Bank &bank, WATCardOffice &office ) : printer(printer), bank(bank), office(office) {};
     };                 // communicates with bank
 
     Printer &printer;
     void main();
 
-    std::list<Job> jobList;
+    std::list<WATCardOffice::Job*> jobList;
+    std::list<WATCardOffice::Courier*> courierList;
   public:
     
     _Event Lost {};                        // uC++ eWATCARD_OFFICEception type, like "struct"
