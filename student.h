@@ -4,6 +4,8 @@
 #include "printer.h"
 #include "nameserver.h"
 #include "watcard.office.h"
+#include "watcard.h"
+#include <uFuture.h>
 
 _Task Student {
     Printer &printer;
