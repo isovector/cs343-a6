@@ -86,7 +86,7 @@ void WATCardOffice::Courier::main()
             std::cout << "delete" << std::endl;
             delete job->args.card;
             std::cout << "end delete" << std::endl;
-            job->result.exception( new WATCardOffice::Lost());
+            job->result.exception(new WATCardOffice::Lost());
         }
     }
     printer.print( Printer::Courier, 'F' );

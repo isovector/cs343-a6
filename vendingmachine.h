@@ -8,6 +8,8 @@ _Task VendingMachine;
 #include "nameserver.h"
 #include "watcard.h"
 
+#include <vector>
+
 _Task VendingMachine {
     Printer &printer;
     NameServer &server;
@@ -15,9 +17,13 @@ _Task VendingMachine {
     unsigned int sodaCost;
     unsigned int maxStock;
     
+    bool isRestocking;
+    
+    std::vector<unsigned int> bottles;
+    
     void main();
   public:
-    enum Flavours { CHERRY, ROOTBEER, SEX };                 // flavours of soda (YOU DEFINE)
+    enum Flavours { CHERRY, CREAMSODA, ROOTBEER, LIME, NUM_FLAVOURS };
     enum Status { BUY, STOCK, FUNDS };     // purchase status: successful buy, out of stock, insufficient funds
     
     VendingMachine( Printer &prt, NameServer &nameServer, unsigned int id, unsigned int sodaCost,

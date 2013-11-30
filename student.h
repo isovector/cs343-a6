@@ -10,7 +10,12 @@ _Task Student {
     NameServer &server;
     WATCardOffice &office;
     
+    unsigned int id;
+    unsigned int toPurchase;
+    
     void main();
+    void obtainCard();
+    
   public:
     Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffice, unsigned int id,
              unsigned int maxPurchases );

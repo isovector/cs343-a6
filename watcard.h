@@ -17,5 +17,6 @@ class WATCard {
     unsigned int getBalance();
 };
 
+typedef Future_ISM<WATCard *> FWATCard;
 
 #endif
