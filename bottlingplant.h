@@ -4,9 +4,19 @@
 #include "printer.h"
 #include "nameserver.h"
 
+#include <vector>
+
 _Task BottlingPlant {
     Printer &printer;
     NameServer &server;
+    
+    unsigned int numMachines;
+    unsigned int productionSize;
+    unsigned int maxStock;
+    unsigned int waitTime;
+    bool hasShipment;
+    
+    std::vector<unsigned int> production;
     
     void main();
   public:

@@ -1,13 +1,5 @@
 #include "watcard.h"
 
-WATCard::WATCard( const WATCard& ) 
-{
-}
-
-WATCard &WATCard::operator=( const WATCard & )
-{
-}
-
 void WATCard::deposit( unsigned int amount )
 {
     balance = balance + amount;

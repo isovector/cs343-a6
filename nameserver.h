@@ -2,13 +2,14 @@
 #define __NAME_SERVER_H
 
 #include "printer.h"
-
 _Task NameServer;
-
 #include "vendingmachine.h"
+
+#include <vector>
 
 _Task NameServer {
     Printer &printer;
+    std::vector<VendingMachine*> machines;
     
     void main();
   public:

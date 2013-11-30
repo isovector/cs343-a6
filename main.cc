@@ -40,7 +40,9 @@ void uMain::main() {
     
     vector<VendingMachine*> machines;
     for (size_t i = 0; i < params.numVendingMachines; ++i) {
-        machines.push_back(new VendingMachine(printer, server, i, params.sodaCost, params.maxStockPerFlavour));
+        VendingMachine *machine = new VendingMachine(printer, server, i, params.sodaCost, params.maxStockPerFlavour);
+        machines.push_back(machine);
+        server.VMregister(machine);
     }
     
     vector<Student*> students;

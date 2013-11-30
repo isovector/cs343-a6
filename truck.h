@@ -10,6 +10,9 @@ _Task Truck {
     NameServer &server;
     BottlingPlant &plant;
     
+    unsigned int numMachines;
+    unsigned int maxStock;
+    
     void main();
     
   public:

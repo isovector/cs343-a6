@@ -9,14 +9,20 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
     }
 }
 
+#define print(state, varargs...) printer.print(Printer::Vending, id, state, ##varargs)
+
 void VendingMachine::main() {
+    print('S', sodaCost);
+    
     while (true) {
         _Accept(~VendingMachine) {
             break;
         } or _When(!isRestocking) _Accept(buy) {
         } or _Accept(inventory) {
+            print('r');
             isRestocking = true;
         } or _Accept(restocked) {
+            print('R');
             isRestocking = false;
         }
     }
@@ -32,6 +38,9 @@ VendingMachine::Status VendingMachine::buy(Flavours flavour, WATCard &card) {
     
     --bottles[idx];
     card.withdraw(sodaCost);
+    
+    print('B', idx, bottles[idx]);
+    
     return BUY;
 }
 
@@ -49,3 +58,5 @@ unsigned int VendingMachine::cost() {
 unsigned int VendingMachine::getId() {
     return id;
 }
+
+#undef print

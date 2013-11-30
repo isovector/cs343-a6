@@ -7,7 +7,7 @@ Student::Student( Printer &prt, NameServer &nameServer, WATCardOffice &cardOffic
 {
 }
 
-#define print(state, varargs...) printer.print(Printer::Student, id, ##varargs)
+#define print(state, varargs...) printer.print(Printer::Student, id, state, ##varargs)
 
 void Student::main() {
     FWATCard fcard = office.create(id, 5);
