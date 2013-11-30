@@ -96,20 +96,21 @@ void WATCardOffice::Courier::main()
 /*
 * Test Program
 #include "MPRNG.h"
-//MPRNG mprand;
+#include "parent.h"
+MPRNG mprand;
 
 void uMain::main()
 {
     std::cout << "Start" << std::endl;
     Bank *bank = new Bank( 10 ); 
     Printer *printer = new Printer( 0, 0, 0 );
+    Parent *parent = new Parent( *printer, *bank, 10, 10 );
     WATCardOffice *office = new WATCardOffice( *printer, *bank, 3 );
     WATCard *cards[10];
 
     std::cout << "Creating cards and putting money in the bank" << std::endl;
     for( int i = 0; i < 10; i++ )
     {
-        bank->deposit( i, 10 );
         std::cout << "\tMoney Deposited" << std::endl;
         WATCard::FWATCard card = office->create( i, 5 );
         std::cout << "\tCard created" << std::endl;

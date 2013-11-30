@@ -15,7 +15,7 @@ void Parent::main() {
         _Else 
         {
             unsigned int amount = mprand( 1, 3 );
-            unsigned int studentID = mprand( numStudents );
+            unsigned int studentID = mprand( numStudents - 1 );
             yield(parentalDelay);
             bank.deposit( studentID, amount );
         }
