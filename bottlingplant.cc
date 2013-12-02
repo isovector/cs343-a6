@@ -53,7 +53,7 @@ bool BottlingPlant::getShipment(unsigned int cargo[]) {
         cargo[i] = production[i];
     }
     
-    return true;
+    return false;
 }
 
 #undef print

@@ -157,7 +157,7 @@ size_t Printer::getIndex(Kind kind, unsigned int id) {
         // fall through between cases is intentional
         case Courier:       id += numMachines;
         case Vending:       id += numStudents;
-        case Student:       id += 4;
+        case Student:       id += 5;
         default:            return id;
     }
 }

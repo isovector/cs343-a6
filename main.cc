@@ -50,12 +50,12 @@ void uMain::main() {
         students.push_back(new Student(printer, server, office, i, params.maxPurchases));
     }
     
-    for (size_t i = 0; i < params.numVendingMachines; ++i) {
-        delete machines[i];
-    }
-    
     for (size_t i = 0; i < params.numStudents; ++i) {
         delete students[i];
+    }
+    
+    for (size_t i = 0; i < params.numVendingMachines; ++i) {
+        delete machines[i];
     }
     
     cout << "***********************" << endl;
