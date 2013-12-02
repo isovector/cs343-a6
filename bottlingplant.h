@@ -23,6 +23,8 @@ _Task BottlingPlant {
     BottlingPlant( Printer &prt, NameServer &nameServer, unsigned int numVendingMachines,
                  unsigned int maxShippedPerFlavour, unsigned int maxStockPerFlavour,
                  unsigned int timeBetweenShipments );
+    virtual ~BottlingPlant();
+  
     bool getShipment( unsigned int cargo[] );
 };
 

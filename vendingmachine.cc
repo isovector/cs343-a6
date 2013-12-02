@@ -11,6 +11,10 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
 
 #define print(state, varargs...) printer.print(Printer::Vending, id, state, ##varargs)
 
+VendingMachine::~VendingMachine() {
+    print('F');
+}
+
 void VendingMachine::main() {
     print('S', sodaCost);
     

@@ -1,11 +1,16 @@
 #include "nameserver.h"
 
 NameServer::NameServer(Printer &prt, unsigned int numVendingMachines, unsigned int numStudents) :
-    printer(prt), machines(numVendingMachines)
+    printer(prt)
 {
+    machines.reserve(numVendingMachines);
 }
 
 #define print(state, varargs...) printer.print(Printer::NameServer, state, ##varargs)
+
+NameServer::~NameServer() {
+    print('F');
+}
 
 void NameServer::main() {
     print('S');
@@ -13,10 +18,11 @@ void NameServer::main() {
     while (true) {
         _Accept(~NameServer) {
             break;
-        }
+        } 
+        or _Accept(VMregister) { }
+        or _Accept(getMachine) { }
+        or _Accept(getMachineList) { }
     }
-    
-    print('F');
 }
 
 void NameServer::VMregister(VendingMachine *vendingmachine) {

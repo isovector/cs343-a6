@@ -51,7 +51,7 @@ void Student::main() {
         }
     }
     
-    print('F', machine->getId());
+    print('F');
 }
 
 #undef print

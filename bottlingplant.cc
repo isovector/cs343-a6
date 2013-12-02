@@ -13,6 +13,10 @@ BottlingPlant::BottlingPlant(Printer &prt, NameServer &nameServer, unsigned int 
 
 #define print(state, varargs...) printer.print(Printer::BottlingPlant, state, ##varargs)
 
+BottlingPlant::~BottlingPlant() {
+    print('F');
+}
+
 void BottlingPlant::main() {
     Truck truck(printer, server, *this, numMachines, maxStock);
     
@@ -42,8 +46,6 @@ void BottlingPlant::main() {
             hasShipment = true;
         }
     }
-    
-    print('F');
 }
 
 bool BottlingPlant::getShipment(unsigned int cargo[]) {

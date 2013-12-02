@@ -14,14 +14,10 @@ WATCardOffice::WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers
 
 WATCard::FWATCard WATCardOffice::create( unsigned int sid, unsigned int amount )
 {
-    std::cout<< "ww";
     WATCard *newWATCard = new WATCard();
-    std::cout<< "cc";
     WATCardOffice::Job *newJob = new WATCardOffice::Job( WATCardOffice::Job::JobArgList(sid,amount,newWATCard));
-    std::cout<< "nj";
     jobList.push_back( newJob );
-    std::cout<< "pb";
-    printer.print( Printer::WATCardOffice, sid, 'C', amount );
+    printer.print( Printer::WATCardOffice, sid, 'C', sid, amount );
     return newJob->result;
 }
 
@@ -29,7 +25,7 @@ WATCard::FWATCard WATCardOffice::transfer( unsigned int sid, unsigned int amount
 {
     WATCardOffice::Job *newJob = new WATCardOffice::Job( WATCardOffice::Job::JobArgList(sid,amount,card));
     jobList.push_back( newJob );
-    printer.print( Printer::WATCardOffice, sid, 'T', amount );
+    printer.print( Printer::WATCardOffice, sid, 'T', sid, amount );
     return newJob->result;
 }
 
@@ -50,7 +46,6 @@ void WATCardOffice::main()
 {
     printer.print( Printer::WATCardOffice, 'S' );
 
-    std::cout << "l";
     while(true)
     {
         _Accept( ~WATCardOffice ) 
@@ -59,7 +54,6 @@ void WATCardOffice::main()
         }
         or _Accept( transfer, create, requestWork );
     }
-    std::cout << "f";
     printer.print( Printer::WATCardOffice, 'F' );
 }
 
@@ -67,12 +61,10 @@ void WATCardOffice::Courier::main()
 {
     
     printer.print( Printer::Courier, 'S' );
-    std::cout << "courier started";
     while(true)
     {
         WATCardOffice::Job *job;
         job = office.requestWork();
-        std::cout << "Recieved card";
 
         printer.print( Printer::Courier, job->args.id, 't', job->args.amount );
         bank.withdraw(job->args.id, job->args.amount);
@@ -83,9 +75,7 @@ void WATCardOffice::Courier::main()
             job->result.delivery(job->args.card);
         }
         else {
-            std::cout << "delete" << std::endl;
             delete job->args.card;
-            std::cout << "end delete" << std::endl;
             job->result.exception(new WATCardOffice::Lost());
         }
     }
