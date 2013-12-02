@@ -74,7 +74,7 @@ Printer::Printer(unsigned int numStudents, unsigned int numVendingMachines, unsi
     
     cout << endl;
     for (size_t i = 0; i < states.size(); ++i) {
-        cout << "******\t";
+        cout << "*******\t";
     }
     cout << endl;
 }
