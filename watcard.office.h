@@ -31,10 +31,12 @@ _Task WATCardOffice
             void main();
           public:
             Courier( Printer &printer, Bank &bank, WATCardOffice &office ) : printer(printer), bank(bank), office(office) {};
+            virtual ~Courier();
     };                 // communicates with bank
 
     Printer &printer;
     void main();
+    unsigned int numCouriers;
 
     std::list<WATCardOffice::Job*> jobList;
     std::list<WATCardOffice::Courier*> courierList;
@@ -42,6 +44,7 @@ _Task WATCardOffice
     
     _Event Lost {};                        // uC++ eWATCARD_OFFICEception type, like "struct"
     WATCardOffice( Printer &prt, Bank &bank, unsigned int numCouriers );
+    virtual ~WATCardOffice();
     WATCard::FWATCard create( unsigned int sid, unsigned int amount );
     WATCard::FWATCard transfer( unsigned int sid, unsigned int amount, WATCard *card );
     Job *requestWork();

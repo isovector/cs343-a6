@@ -3,6 +3,7 @@
 
 #include "printer.h"
 #include "nameserver.h"
+_Task Truck;
 
 #include <vector>
 
@@ -15,6 +16,7 @@ _Task BottlingPlant {
     unsigned int maxStock;
     unsigned int waitTime;
     bool hasShipment;
+    bool done;
     
     std::vector<unsigned int> production;
     
