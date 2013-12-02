@@ -124,7 +124,6 @@ void Printer::printRaw(size_t id, StateNum state) {
 void Printer::flush() {
     bool isDirty = false;
     for (vector<StateNum>::iterator it = states.begin(); it != states.end(); ++it) {
-        // operator != is not defined
         if (*it != ' ') {
             isDirty = true;
             break;
