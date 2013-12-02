@@ -14,6 +14,7 @@ _Task Parent {
     
   public:
     Parent( Printer &prt, Bank &bank, unsigned int numStudents, unsigned int parentalDelay );
+    virtual ~Parent();
 };
 
 #endif

@@ -23,9 +23,9 @@ void Student::main() {
         yield(mprand(1, 10));
         
         while (true) {
-            WATCard *card = fcard();
-            
             try {
+                WATCard *card = fcard();
+                
                 switch (machine->buy(flavor, *card)) {
                     case VendingMachine::BUY: {
                         toPurchase--;

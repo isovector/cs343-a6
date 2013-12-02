@@ -27,7 +27,6 @@ void BottlingPlant::main() {
             break;
         } or _When(hasShipment) _Accept(getShipment) {
             hasShipment = false;
-            print('P');
         } _Else {
             if (hasShipment) {
                 yield(0);
@@ -49,6 +48,8 @@ void BottlingPlant::main() {
 }
 
 bool BottlingPlant::getShipment(unsigned int cargo[]) {
+    print('P');
+    
     for (size_t i = 0; i < VendingMachine::NUM_FLAVOURS; ++i) {
         cargo[i] = production[i];
     }

@@ -1,9 +1,13 @@
 #include "nameserver.h"
 
 NameServer::NameServer(Printer &prt, unsigned int numVendingMachines, unsigned int numStudents) :
-    printer(prt)
+    printer(prt), numStudents(numStudents)
 {
     machines.reserve(numVendingMachines);
+    
+    for (size_t i = 0; i < numStudents; ++i) {
+        position.push_back(i % numVendingMachines);
+    }
 }
 
 #define print(state, varargs...) printer.print(Printer::NameServer, state, ##varargs)
@@ -31,9 +35,12 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 }
 
 VendingMachine* NameServer::getMachine(unsigned int id) {
-    // TODO: this is 100% wrong
-    print('N', id, machines[id]->getId());
-    return machines[id];
+    ++position[id];
+    position[id] %= machines.size();
+    
+    size_t pos = position[id];
+    print('N', id, machines[pos]->getId());
+    return machines[pos];
 }
 
 VendingMachine** NameServer::getMachineList() {

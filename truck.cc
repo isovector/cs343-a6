@@ -38,13 +38,21 @@ void Truck::main() {
             
             print('d', machine.getId(), bottlesRemaining);
             
+            size_t unfilledVendingMachine = 0;
             for (size_t f = 0; f < VendingMachine::NUM_FLAVOURS && bottlesRemaining > 0; ++f) {
-                // TODO: there is a failure condition here but i dont know how it works
                 while (inventory[f] < maxStock && shipment[f] > 0) {
                     ++inventory[f];
                     --shipment[f];
                     --bottlesRemaining;
                 }
+                
+                if (inventory[f] != maxStock) {
+                    unfilledVendingMachine += maxStock - inventory[f];
+                }
+            }
+            
+            if (unfilledVendingMachine != 0) {
+                print('U', machine.getId(), unfilledVendingMachine);
             }
             
             machine.restocked();

@@ -9,7 +9,11 @@ _Task NameServer;
 
 _Task NameServer {
     Printer &printer;
+    
+    unsigned int numStudents;
+    
     std::vector<VendingMachine*> machines;
+    std::vector<size_t> position;
     
     void main();
   public:
