@@ -13,6 +13,7 @@ Parent::~Parent()
 
 void Parent::main() {
     printer.print( Printer::Parent, 'S' );
+    
     while( true )
     {
         _Accept( ~Parent )

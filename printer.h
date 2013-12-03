@@ -5,6 +5,7 @@
 #include <vector>
 
 _Monitor Printer {
+    // helper class to manage a state and optional numerical parameters
     class StateNum {
         char state;
         size_t nums;
@@ -27,6 +28,8 @@ _Monitor Printer {
     void printRaw(size_t id, StateNum state);
 
     unsigned int numStudents, numMachines, numCouriers;
+    
+    // the last set state of each column
     std::vector<StateNum> states;
     
   public:

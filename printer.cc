@@ -15,6 +15,7 @@ Printer::StateNum::StateNum(char state, int num1, int num2) :
     state(state), nums(2), num1(num1), num2(num2)
 { }
 
+// determine if a statenum is a particular state
 bool Printer::StateNum::operator==(char other) {
     return state == other;
 }
@@ -23,6 +24,7 @@ bool Printer::StateNum::operator!=(char other) {
     return !operator==(other);
 }
 
+// determine if statenums are equivalent
 bool Printer::StateNum::operator==(const StateNum &other) {
     return state == other.state && nums == other.nums 
         && num1 == other.num1 && num2 == other.num2;
@@ -103,8 +105,10 @@ void Printer::print(Kind kind, unsigned int lid, char state, int value1, int val
     printRaw(getIndex(kind, lid), StateNum(state, value1, value2));
 }
 
+// the proverbial meat of the printer
 void Printer::printRaw(size_t id, StateNum state) {
     if ((states[id] != state && states[id] != ' ') || state == 'F') {
+        // if our state has changed, or we are finished, print output
         flush();
     }
     
@@ -122,6 +126,7 @@ void Printer::printRaw(size_t id, StateNum state) {
 
 // Output the printer buffer
 void Printer::flush() {
+    // has anything changed since last time we flushed?
     bool isDirty = false;
     for (vector<StateNum>::iterator it = states.begin(); it != states.end(); ++it) {
         if (*it != ' ') {
@@ -145,6 +150,7 @@ void Printer::flush() {
     cout << endl;
 }
 
+// (kind,id) => column number
 size_t Printer::getIndex(Kind kind, unsigned int id) {
     switch (kind) {
         case Parent:        return 0;

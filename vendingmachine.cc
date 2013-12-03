@@ -9,6 +9,7 @@ VendingMachine::VendingMachine(Printer &prt, NameServer &nameServer, unsigned in
     }
 }
 
+// helper printer
 #define print(state, varargs...) printer.print(Printer::Vending, id, state, ##varargs)
 
 VendingMachine::~VendingMachine() {
@@ -21,11 +22,15 @@ void VendingMachine::main() {
     while (true) {
         _Accept(~VendingMachine) {
             break;
-        } or _When(!isRestocking) _Accept(buy) {
-        } or _Accept(inventory) {
+        } 
+        // can't use me 'cause i'm restocking, silly
+        or _When(!isRestocking) _Accept(buy) {
+        }
+        or _Accept(inventory) {
             print('r');
             isRestocking = true;
-        } or _Accept(restocked) {
+        }
+        or _Accept(restocked) {
             print('R');
             isRestocking = false;
         }
@@ -33,13 +38,18 @@ void VendingMachine::main() {
 }
 
 VendingMachine::Status VendingMachine::buy(Flavours flavour, WATCard &card) {
+    // you want what?
     size_t idx = static_cast<size_t>(flavour);
+    
     if (bottles[idx] == 0) {
+        // don't have any, sorry
         return STOCK;
     } else if (card.getBalance() < sodaCost) {
+        // you're poor. get more dollars
         return FUNDS;
     }
     
+    // manage inventory and cash
     --bottles[idx];
     card.withdraw(sodaCost);
     
@@ -49,6 +59,7 @@ VendingMachine::Status VendingMachine::buy(Flavours flavour, WATCard &card) {
 }
 
 unsigned int* VendingMachine::inventory() {
+    // vector to array, totally cool right?
     return &bottles[0];
 }
 

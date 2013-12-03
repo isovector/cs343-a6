@@ -16,6 +16,8 @@ BottlingPlant::BottlingPlant(Printer &prt, NameServer &nameServer, unsigned int 
 {
 }//end constructor
 
+// helper macro to make printing so much easier.
+// sure, macros are bad, but 1000x templates are probably worse in this case
 #define print(state, varargs...) printer.print(Printer::BottlingPlant, state, ##varargs)
 
 /*
@@ -33,22 +35,27 @@ BottlingPlant::~BottlingPlant()
 * Waits for truck to stop before deleting itself
 */
 void BottlingPlant::main() {
-    Truck *truck = new Truck(printer, server, *this, numMachines, maxStock);
+    Truck truck(printer, server, *this, numMachines, maxStock);
     print('S');
+    
     while (true) {
         _Accept(~BottlingPlant) {
+            // listen to when we are finishing
             done = true;
             break;
         } or _When(hasShipment) _Accept(getShipment) {
+            // only accept a pickup if we have a shipment
             hasShipment = false;
         } _Else {
             if (hasShipment) {
+                // do nothing if we already have a shipment
                 yield(0);
                 continue;
             }
             
             yield(waitTime);
             
+            // CREATE BOTTLES OUT OF THIN AIR
             size_t bottlesProduced = 0;
             for (size_t i = 0; i < VendingMachine::NUM_FLAVOURS; ++i) {
                 production[i] = mprand(1, productionSize);
@@ -59,8 +66,8 @@ void BottlingPlant::main() {
             hasShipment = true;
         }
     }
+    
     _Accept(getShipment); //Need to ensure truck gets the done message before proceding to destructor
-    delete truck;
 }
 
 /*
@@ -68,14 +75,17 @@ void BottlingPlant::main() {
 * If the bottoling plant is shutting down then just return true
 */
 bool BottlingPlant::getShipment(unsigned int cargo[]) {
-    if( done == true )
-    {
+    if( done == true ) {
         return true;
     }
+    
     print('P');
+    
+    // gimme dat cargo
     for (size_t i = 0; i < VendingMachine::NUM_FLAVOURS; ++i) {
         cargo[i] = production[i];
     }
+    
     return false;
 }
 

@@ -36,11 +36,14 @@ void uMain::main() {
     
     Printer printer(params.numStudents, params.numVendingMachines, params.numCouriers);
     Bank bank(params.numStudents);
+    
+    // we need to explicitly manage the order these terminate in, thus pointers
     Parent *parent = new Parent(printer, bank, params.numStudents, params.parentalDelay);
     WATCardOffice *office = new WATCardOffice(printer, bank, params.numCouriers);
     NameServer *server = new NameServer(printer, params.numVendingMachines, params.numStudents);
     BottlingPlant *plant = new BottlingPlant(printer, *server, params.numVendingMachines, params.maxShippedPerFlavour, params.maxStockPerFlavour, params.timeBetweenShipments);
     
+    // create VMs
     vector<VendingMachine*> machines;
     for (size_t i = 0; i < params.numVendingMachines; ++i) {
         VendingMachine *machine = new VendingMachine(printer, *server, i, params.sodaCost, params.maxStockPerFlavour);
@@ -53,6 +56,7 @@ void uMain::main() {
         students.push_back(new Student(printer, *server, *office, i, params.maxPurchases));
     }
     
+    // synchronize students
     for (size_t i = 0; i < params.numStudents; ++i) {
         delete students[i];
     }
@@ -62,6 +66,7 @@ void uMain::main() {
     for (size_t i = 0; i < params.numVendingMachines; ++i) {
         delete machines[i];
     }
+    
     delete office;
     delete server;
     delete parent;

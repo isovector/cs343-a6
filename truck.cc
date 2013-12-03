@@ -8,12 +8,13 @@ Truck::Truck(Printer &prt, NameServer &nameServer, BottlingPlant &plant,
 {
 }
 
+// helper printer
 #define print(state, varargs...) printer.print(Printer::Truck, state, ##varargs)
+
 Truck::~Truck()
 {
     print('F');
 }
-
 
 void Truck::main() {
     VendingMachine **machines = server.getMachineList();
@@ -26,6 +27,7 @@ void Truck::main() {
     {
         _Accept( ~Truck )
         {
+            // loop until someone tells us not to
             break;
         }
         _Else
@@ -38,6 +40,7 @@ void Truck::main() {
                 break;
             }
             
+            // size of shipment
             bottlesRemaining = 0;
             for(size_t f = 0; f < VendingMachine::NUM_FLAVOURS; ++f) 
             {
@@ -46,11 +49,14 @@ void Truck::main() {
             
             print('P', bottlesRemaining);
             
+            // visit each machine
             for (size_t v = 0; v < numMachines && bottlesRemaining > 0; v++) 
             {
                 VendingMachine &machine = *machines[v];
                 unsigned int *inventory = machine.inventory();
                 print('d', machine.getId(), bottlesRemaining);
+                
+                // the vending machine just wants to be filled
                 size_t unfilledVendingMachine = 0;
                 for (size_t f = 0; f < VendingMachine::NUM_FLAVOURS; ++f) {
                     while (inventory[f] < maxStock && shipment[f] > 0) {
@@ -60,18 +66,20 @@ void Truck::main() {
                     }
                     
                     if (inventory[f] != maxStock) {
+                        // the vending machine is not filled
                         unfilledVendingMachine += maxStock - inventory[f];
                     }
                 }
                 
                 if (unfilledVendingMachine != 0) {
+                    // if machine isn't filled, that is a Probalo
                     print('U', machine.getId(), unfilledVendingMachine);
                 }
 
+                // alert the machine it's good to go
                 machine.restocked();
                 print('D', machine.getId(), bottlesRemaining);
             }
-            
         }
     }        
 }

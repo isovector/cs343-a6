@@ -3,6 +3,7 @@
 NameServer::NameServer(Printer &prt, unsigned int numVendingMachines, unsigned int numStudents) :
     printer(prt), numStudents(numStudents)
 {
+    // necessary so we can pass our vector around as an array without worrying about invalidation
     machines.reserve(numVendingMachines);
     
     for (size_t i = 0; i < numStudents; ++i) {
@@ -10,6 +11,7 @@ NameServer::NameServer(Printer &prt, unsigned int numVendingMachines, unsigned i
     }
 }
 
+// helper printer
 #define print(state, varargs...) printer.print(Printer::NameServer, state, ##varargs)
 
 NameServer::~NameServer() {
@@ -35,6 +37,7 @@ void NameServer::VMregister(VendingMachine *vendingmachine) {
 }
 
 VendingMachine* NameServer::getMachine(unsigned int id) {
+    // get new vending machine for student
     ++position[id];
     position[id] %= machines.size();
     

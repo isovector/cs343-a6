@@ -3,7 +3,8 @@
 /*
 * Constructor
 */
-Bank::Bank(unsigned int numStudents) : studentAccounts(numStudents, 0)
+Bank::Bank(unsigned int numStudents) : 
+    studentAccounts(numStudents, 0)
 {
 }//end constructor
 
@@ -20,7 +21,10 @@ void Bank::deposit(unsigned int id, unsigned int amount)
 */
 void Bank::withdraw(unsigned int id, unsigned int amount)
 {
-    while(amount > studentAccounts.at(id)) _Accept(deposit);
+    while(amount > studentAccounts.at(id)) {
+        _Accept(deposit);
+    }
+    
     studentAccounts.at(id) = studentAccounts.at(id) - amount;
 }//end withdraw
 
