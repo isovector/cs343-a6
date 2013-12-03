@@ -29,3 +29,5 @@ void Parent::main() {
         }
     }
 }
+
+#undef print

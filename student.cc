@@ -23,7 +23,6 @@ void Student::main() {
         yield(mprand(1, 10));
         
         while (true) {
-            
             try {
                 WATCard *card = fcard();
                 switch (machine->buy(flavor, *card)) {
